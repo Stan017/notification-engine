@@ -17,25 +17,25 @@
 ┌─────────────────────────────────────────────────────────────────────┐
 │                        notification-engine                          │
 │                                                                     │
-│  ┌──────────────────┐        ┌──────────────────────────────────┐  │
-│  │  notification-   │        │     notification-consumer        │  │
-│  │    producer      │        │                                  │  │
-│  │                  │        │  ┌────────────────────────────┐  │  │
-│  │  REST API        │        │  │   DomainEventListener      │  │  │
-│  │  POST /events    │        │  │   @KafkaListener           │  │  │
-│  │                  │        │  └─────────────┬──────────────┘  │  │
-│  │  EventPublisher  │        │                │                  │  │
-│  │  Service         │        │  ┌─────────────▼──────────────┐  │  │
-│  └────────┬─────────┘        │  │  NotificationRouterService  │  │  │
-│           │                  │  │  resolveChannels(eventType) │  │  │
-│           │ KafkaTemplate    │  └─────────────┬──────────────┘  │  │
-│           │                  │                │                  │  │
-│  ┌────────▼─────────┐        │  ┌─────────────▼──────────────┐  │  │
-│  │   Apache Kafka   │        │  │     ChannelAdapter          │  │  │
-│  │                  │        │  │  EMAIL | PUSH | SMS         │  │  │
-│  │  ml.orders       ◄────────►  └─────────────┬──────────────┘  │  │
-│  │  ml.payments     │        │                │                  │  │
-│  │  ml.shipments    │        │  ┌─────────────▼──────────────┐  │  │
+│  ┌──────────────────┐        ┌──────────────────────────────────┐   │
+│  │  notification-   │        │     notification-consumer        │   │ 
+│  │    producer      │        │                                  │   │
+│  │                  │        │  ┌────────────────────────────┐  │   │
+│  │  REST API        │        │  │   DomainEventListener      │  │   │
+│  │  POST /events    │        │  │   @KafkaListener           │  │   │
+│  │                  │        │  └─────────────┬──────────────┘  │   │
+│  │  EventPublisher  │        │                │                 │   │
+│  │  Service         │        │  ┌─────────────▼──────────────┐  │   │
+│  └────────┬─────────┘        │  │  NotificationRouterService │  │   │
+│           │                  │  │  resolveChannels(eventType)│  │   │
+│           │ KafkaTemplate    │  └─────────────┬──────────────┘  │   │
+│           │                  │                │                 │   │
+│  ┌────────▼─────────┐        │  ┌─────────────▼──────────────┐  │   │
+│  │   Apache Kafka   │        │  │     ChannelAdapter         │  │   │
+│  │                  │        │  │  EMAIL | PUSH | SMS        │  │   │
+│  │  ml.orders       ◄────────►  └─────────────┬──────────────┘  │   │
+│  │  ml.payments     │        │                │                 │   │
+│  │  ml.shipments    │        │  ┌─────────────▼──────────────┐  │   │
 │  │  ml.notifications│        │  │       PostgreSQL 16         │  │  │
 │  │    .dlq          │        │  │  notifications table        │  │  │
 │  └──────────────────┘        │  │  notification_events        │  │  │
@@ -49,7 +49,7 @@
 ```
 Producer                    Kafka                      Consumer
    │                          │                           │
-   │  POST /api/v1/events      │                           │
+   │  POST /api/v1/events     │                           │
    │─────────────────────►    │                           │
    │                          │   DomainEvent published   │
    │                          │──────────────────────────►│

@@ -1,0 +1,23 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+  datasource:
+    url: jdbc:postgresql://localhost:5433/notifications
+    username: mluser
+    password: mlpass
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+
+logging:
+  level:
+    com.ml.notification: DEBUG
+    org.springframework.kafka: WARN

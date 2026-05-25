@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: notification-producer
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+server:
+  port: 8080
+
+kafka:
+  topics:
+    orders: ml.orders.events
+    payments: ml.payments.events
+    shipments: ml.shipments.events
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
